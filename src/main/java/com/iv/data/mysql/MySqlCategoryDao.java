@@ -23,6 +23,21 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
         super(dataSource);
     }
 
+    @Override
+    public Product add(Product product) {
+        return null;
+    }
+
+    @Override
+    public List<Product> getByCategoryId(int categoryId) {
+        return null;
+    }
+
+    @Override
+    public Product getProductById(int productId) {
+        return null;
+    }
+
 
     @Override
     public List<Category> getAllCategories() {

@@ -1,11 +1,13 @@
 package com.iv.data.mysql;
 
+import com.iv.models.Product;
 import com.iv.models.Profile;
 import org.springframework.stereotype.Component;
 import com.iv.data.ProfileDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.List;
 
 @Component
 public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
@@ -13,6 +15,21 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
     public MySqlProfileDao(DataSource dataSource)
     {
         super(dataSource);
+    }
+
+    @Override
+    public Product add(Product product) {
+        return null;
+    }
+
+    @Override
+    public List<Product> getByCategoryId(int categoryId) {
+        return null;
+    }
+
+    @Override
+    public Product getProductById(int productId) {
+        return null;
     }
 
     @Override
@@ -42,6 +59,16 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
         {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Profile getByUserId(int userId) {
+        return null;
+    }
+
+    @Override
+    public Profile update(Profile profile) {
+        return null;
     }
 
 }

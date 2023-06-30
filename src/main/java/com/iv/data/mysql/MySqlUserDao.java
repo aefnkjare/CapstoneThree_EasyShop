@@ -22,7 +22,20 @@ public class MySqlUserDao extends MySqlDaoBase implements UserDao
         super(dataSource);
     }
 
+    @Override
+    public Product add(Product product) {
+        return null;
+    }
 
+    @Override
+    public List<Product> getByCategoryId(int categoryId) {
+        return null;
+    }
+
+    @Override
+    public Product getProductById(int productId) {
+        return null;
+    }
 
 
     @Override
