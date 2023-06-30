@@ -1,9 +1,40 @@
 package com.iv.data;
 
 import com.iv.models.ShoppingCart;
+import com.iv.models.ShoppingCartItem;
 
-public interface ShoppingCartDao
-{
+import java.math.BigDecimal;
+import java.util.List;
+
+public interface ShoppingCartDao {
+
+    ShoppingCart getShoppingCart(int cartId);
+
+    void saveShoppingCart(ShoppingCart shoppingCart);
+
+    // Additional methods to be implemented
+
+    void deleteShoppingCart(int cartId);
+
+    List<ShoppingCart> getAllShoppingCarts();
+
+    List<ShoppingCart> getShoppingCartsByUserId(int userId);
+
+    void addCartItem(int cartId, ShoppingCartItem item);
+
+    void updateCartItem(int cartId, ShoppingCartItem item);
+
+    void removeCartItem(int cartId, int productId);
+
+    BigDecimal calculateCartTotal(int cartId);
+
+    int getItemCount(int cartId);
+
+    void addProductToCart(int userId, int productId);
+
     ShoppingCart getByUserId(int userId);
-    // add additional method signatures here
+
+    void clearCart(int userId);
+
+    void updateProductInCart(int userId, int productId, int quantity);
 }

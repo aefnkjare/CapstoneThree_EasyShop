@@ -1,8 +1,11 @@
 package com.iv.data.mysql;
 
+import com.iv.models.Product;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public abstract class MySqlDaoBase
 {
@@ -17,4 +20,10 @@ public abstract class MySqlDaoBase
     {
         return dataSource.getConnection();
     }
+
+    public abstract Product add(Product product);
+
+    public abstract List<Product> getByCategoryId(int categoryId);
+
+    public abstract Product getProductById(int productId);
 }

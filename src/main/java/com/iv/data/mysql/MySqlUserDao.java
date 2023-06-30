@@ -1,9 +1,11 @@
 package com.iv.data.mysql;
 
-import com.iv.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.iv.data.UserDao;
+import com.iv.models.Category;
+import com.iv.models.Product;
+import com.iv.models.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -19,6 +21,8 @@ public class MySqlUserDao extends MySqlDaoBase implements UserDao
     {
         super(dataSource);
     }
+
+
 
 
     @Override
