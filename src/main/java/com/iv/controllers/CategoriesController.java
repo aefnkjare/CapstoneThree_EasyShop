@@ -1,15 +1,17 @@
 package com.iv.controllers;
 
-import com.iv.data.CategoryDao;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import com.iv.data.CategoryDao;
 import com.iv.data.ProductDao;
 import com.iv.models.Category;
 import com.iv.models.Product;
 
-import java.util.HashMap;
+import java.nio.file.NotDirectoryException;
 import java.util.List;
 
 @RestController
@@ -19,56 +21,56 @@ public class CategoriesController {
     private CategoryDao categoryDao;
     private ProductDao productDao;
 
-
-    // create an Autowired controller to inject the categoryDao and ProductDao
     @Autowired
     public CategoriesController(CategoryDao categoryDao, ProductDao productDao) {
         this.categoryDao = categoryDao;
         this.productDao = productDao;
     }
 
-    // add the appropriate annotation for a get action
     @GetMapping
-    public List<Category> getAll() {  // find and return all categories
+    public List<Category> getAll() {
         return categoryDao.getAllCategories();
     }
 
-    // add the appropriate annotation for a get action
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Category getById(@PathVariable int id) {  // get the category by id
-        return categoryDao.getById(id);
+    @ResponseStatus(HttpStatus.OK)
+    public Category getById(@PathVariable int id) {
+        Category category = categoryDao.getById(id);
+        if (category != null) {
+            return categoryDao.getById(id);
+        } else if (category == null) {
+            return null;
+        }
+        return category;
     }
 
-    // the url to return all products in category 1 would look like this
-    // https://localhost:8080/categories/1/products
+    //     the url to return all products in category 1 would look like this
+//     https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId) {  // get a list of product by categoryId
-        return this.productDao.listByCategoryId(categoryId);
+    public List<Product> getProductsById(@PathVariable int categoryId) {
+        return productDao.listByCategoryId(categoryId);
+
     }
 
-    // add annotation to call this method for a POST action
-    // add annotation to ensure that only an ADMIN can call this function
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Category addCategory(@RequestBody Category category) {  // insert the category
+    @ResponseStatus(value= HttpStatus.CREATED)
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Category addCategory(@RequestBody Category category) {
         return categoryDao.create(category);
     }
 
-    // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
-    // add annotation to ensure that only an ADMIN can call this function
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateCategory(@PathVariable int id, @RequestBody Category category) {  // update the category by id
-        categoryDao.update(id, category);
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
+        categoryDao.update(id,category);
+
     }
 
-    // add annotation to call this method for a DELETE action - the url path must include the categoryId
-    // add annotation to ensure that only an ADMIN can call this function
-    @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCategory(@PathVariable int id) {  // delete the category by id
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteCategory(@PathVariable int id) {
         categoryDao.delete(id);
     }
 }

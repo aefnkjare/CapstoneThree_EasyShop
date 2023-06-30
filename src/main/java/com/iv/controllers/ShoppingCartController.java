@@ -1,48 +1,66 @@
 package com.iv.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import com.iv.data.ProductDao;
 import com.iv.data.ShoppingCartDao;
 import com.iv.data.UserDao;
+import com.iv.models.Product;
 import com.iv.models.ShoppingCart;
 import com.iv.models.User;
 
 import java.security.Principal;
 
-// convert this class to a REST controller
-// only logged in users should have access to these actions
-public class ShoppingCartController
-{
-    // a shopping cart requires
-    private ShoppingCartDao shoppingCartDao;
-    private UserDao userDao;
-    private ProductDao productDao;
+@RestController
+@RequestMapping("/cart")
+@CrossOrigin
+//@PreAuthorize()
+public class ShoppingCartController {
+//    // a shopping cart requires
+//    private ShoppingCartDao shoppingCartDao;
+//    private UserDao userDao;
+//    private ProductDao productDao;
+//
+//    public ShoppingCartController(ShoppingCartDao shoppingCartDao, UserDao userDao, ProductDao productDao){
+//        this.shoppingCartDao = shoppingCartDao;
+//        this.userDao = userDao;
+//        this.productDao = productDao;
+//    }
 
 
-
-    // each method in this controller requires a Principal object as a parameter
-    public ShoppingCart getCart(Principal principal)
-    {
-        try
-        {
-            // get the currently logged in username
-            String userName = principal.getName();
-            // find database user by userId
-            User user = userDao.getByUserName(userName);
-            int userId = user.getId();
-
-            // use the shoppingcartDao to get all items in the cart and return the cart
-            return null;
-        }
-        catch(Exception e)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
-        }
-    }
+//     each method in this controller requires a Principal object as a parameteR
+//    @GetMapping
+//    public ShoppingCart getCart(Principal principal) {
+//        try {
+//            // get the currently logged in username
+//            String userName = principal.getName();
+//            // find database user by userId
+//            User user = userDao.getByUserName(userName);
+//            int userId = user.getId();
+//            // use the shoppingcartDao to get all items in the cart and return the cart
+//            return shoppingCartDao.getByUserId(userId);
+//        } catch(Exception e) {
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+//        }
+//    }
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
+//    @PostMapping("/products/{productId}")
+//    public void addProduct(Principal principal, @PathVariable int productId) {
+//        try {
+//            String userName = principal.getName();
+//            User user = userDao.getByUserName(userName);
+//            int userId = user.getId();
+//            Product product = productDao.getById(productId);
+//            shoppingCartDao.addProduct(userId, product);
+//        } catch (Exception e) {
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+//        }
+//    }
+
 
 
     // add a PUT method to update an existing product in the cart - the url should be
@@ -51,6 +69,6 @@ public class ShoppingCartController
 
 
     // add a DELETE method to clear all products from the current users cart
-    // https://localhost:8080/cart
+    // https://localhost:80802/cart
 
 }
